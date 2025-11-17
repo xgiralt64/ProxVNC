@@ -1,6 +1,8 @@
 import select
 import time
 
+import websocket
+
 class TerminalHandler:
     def __init__(self, ws_connection):
         self.ws_connection = ws_connection

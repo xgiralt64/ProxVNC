@@ -4,13 +4,13 @@ from .connection import WSConnection
 from .terminal import TerminalHandler
 
 class ProxWSVNC:
-    def __init__(self, api: "ProxmoxAPI" = None, *, url=None, port=None, node=None, shell_port=None, shell_ticket=None):
+    def __init__(self, api: "ProxmoxAPI" = None, *, url=None, node=None, shell_port=None, shell_ticket=None, pve_auth_cookie=None):
         self._store = {}
         if api is not None:
             self._store["api"] = api
             self._store["url"] = api._store["base_url"]
-        elif all(x is not None for x in [url, port, node, shell_port, shell_ticket]):
-            for key, value in [("url", url), ("port", port), ("node", node), ("shell_port", shell_port), ("shell_ticket", shell_ticket)]:
+        elif all(x is not None for x in [url, node, shell_port, shell_ticket, pve_auth_cookie]):
+            for key, value in [("url", url), ("node", node), ("shell_port", shell_port), ("shell_ticket", shell_ticket), ("pve_auth_cookie", pve_auth_cookie)]:
                 self._store[key] = value
         else:
             raise ValueError("Provide either ProxmoxAPI or all parameters.")
@@ -25,6 +25,7 @@ class ProxWSVNC:
 
             wss_url = self._store["url"].replace("https://", "wss://", 1)
 
+
             shell_ticket = termproxy["ticket"]
             shell_port = termproxy["port"]
 
@@ -36,6 +37,21 @@ class ProxWSVNC:
             self.connection.connect()
 
             self.connection.ws.send(f"root@pam:{shell_ticket}\n")
+            self.connection.ws.send("1:86:24:")  # resolution
+
+            self.terminal = TerminalHandler(self.connection)
+        else:
+            wss_url = self._store["url"].replace("https://", "wss://", 1)
+
+            ws_url = f"{wss_url}/api2/json/nodes/pve/vncwebsocket?port={self._store['shell_port']}&vncticket={urllib.parse.quote_plus(self._store['shell_ticket'])}"
+            cookie_header=f"PVEAuthCookie={self._store['pve_auth_cookie']}"
+
+            print(ws_url, cookie_header)
+
+            self.connection = WSConnection(ws_url, cookie_header)
+            self.connection.connect()
+
+            self.connection.ws.send(f"root@pam:{self._store['shell_ticket']}\n")
             self.connection.ws.send("1:86:24:")  # resolution
 
             self.terminal = TerminalHandler(self.connection)

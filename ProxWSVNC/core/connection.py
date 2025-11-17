@@ -13,16 +13,15 @@ class WSConnection:
         self._keep_alive_running = False
 
     def connect(self):
-        self.ws = websocket.WebSocket()
-        self.ws.connect(
+        self.ws = websocket.create_connection(
             self.ws_url,
-            sslopt={"cert_reqs": ssl.CERT_NONE, "check_hostname": False},
-            cookie=self.cookie_header
+            cookie=self.cookie_header,
+            sslopt={"cert_reqs": ssl.CERT_NONE, "check_hostname": False}
         )
-        self.start_keep_alive()
+        self.startKeepAlive()
 
     def disconnect(self):
-        self.stop_keep_alive()
+        self.stopKeepAlive()
         if self.ws:
             try:
                 self.ws.close()
@@ -31,7 +30,7 @@ class WSConnection:
         self.ws = None
 
     # ------------------ Keep Alive ------------------
-    def start_keep_alive(self):
+    def startKeepAlive(self):
         if self._keep_alive_thread is not None:
             return
 
@@ -48,6 +47,6 @@ class WSConnection:
         self._keep_alive_thread = threading.Thread(target=run, daemon=True)
         self._keep_alive_thread.start()
 
-    def stop_keep_alive(self):
+    def stopKeepAlive(self):
         self._keep_alive_running = False
         self._keep_alive_thread = None

@@ -4,7 +4,7 @@ from ProxWSVNC import ProxWSVNC
 def main():
     # --- ProxmoxAPI ---
     
-    proxmox = ProxmoxAPI(host="",
+    proxmox = ProxmoxAPI(host="", #De vegades no funciona 
                          user="root@pam", 
                          password="",
                          otp=input("OTP: "),
@@ -15,7 +15,7 @@ def main():
 
     while True:
         cmd = input("Enter a command:")
-        
+
         client.execCommand(cmd)
         
         client.readTerm()
