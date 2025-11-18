@@ -12,6 +12,14 @@ class TerminalHandler:
             self.ws_connection.ws.send("0:1:" + char)
         self.ws_connection.ws.send("0:1:\n")  # Enter
 
+    def sendInput(self, input_data: str):
+        for char in input_data:
+            self.ws_connection.ws.send("0:1:" + char)
+
+    def sendBinaryInput(self, input_data: bytes):
+        for byte in input_data:
+            self.ws_connection.ws.send(f"0:1:{chr(byte)}")
+
     def readUntilPrompt(self, term_prompt="root@pve"):
         buffer = ""
         while True:
@@ -24,7 +32,7 @@ class TerminalHandler:
         return buffer
 
     def readTerm(self, wait_time=0.5):
-        buffer = b""
+        buffer = ""
         last_data_time = time.time()
 
         while True:
@@ -33,8 +41,8 @@ class TerminalHandler:
                 try:
                     data = self.ws_connection.ws.recv()
                     if data:
-                        buffer += data
-                        print(data.decode("utf-8", errors="ignore"))
+                        buffer += data.decode("utf-8", errors="ignore")
+                        #print(data.decode("utf-8", errors="ignore")) print data
                         last_data_time = time.time()
                     else:
                         break

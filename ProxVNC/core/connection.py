@@ -18,7 +18,7 @@ class WSConnection:
             cookie=self.cookie_header,
             sslopt={"cert_reqs": ssl.CERT_NONE, "check_hostname": False}
         )
-        self.startKeepAlive()
+        
 
     def disconnect(self):
         self.stopKeepAlive()

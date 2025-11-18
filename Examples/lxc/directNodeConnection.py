@@ -1,10 +1,10 @@
-from ProxWSVNC.proxmoxer import ProxmoxAPI
-from ProxWSVNC import ProxWSVNC
+from ProxVNC.proxmoxer import ProxmoxAPI
+from ProxVNC import ProxWSVNC
 
 def main():
     
     proxmox = ProxmoxAPI(host="",
-                         user="root@pam", 
+                         user="", 
                          password="",
                          otp=input("OTP: "),
                          verify_ssl=False)
@@ -18,22 +18,28 @@ def main():
 
         
     client = ProxWSVNC(
-             url="",
+             url="https://",
              node="pve",
+             user="",
              shell_port=shell_port,
              shell_ticket=shell_ticket,
              pve_auth_cookie=pve_cookie
             )  
-    client.connect()
+    client.connect(lxc=104)
+    print(client.readTerm())
 
     while True:
         cmd = input("Enter a command:")
-        
+
+        if cmd.lower() in ["exit", "quit"]:
+            break
+
         client.execCommand(cmd)
         
-        client.readTerm()
+        print(client.readTerm())
         
 
+    client.disconnect()
 
 if __name__ == "__main__":
     main()
