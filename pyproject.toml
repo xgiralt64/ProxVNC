@@ -4,16 +4,25 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ProxVNC"
-version = "1.0.0"
-description = "This library allows connecting and sending commands direcly to a proxmox node/lxc via vnc websocket"
+version = "1.0.3"
+description = "A python package that allows connecting and sending commands direcly to a proxmox node/lxc via vnc websocket."
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [
   { name = "Xavier Giralt" }
 ]
-keywords = ["library", "proxmox", "vnc", "websocket"]
+keywords = ["package", "proxmox", "vnc", "websocket"]
 requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.32.0",
+    "websocket-client>=1.9.0",
+    "urllib3>=2.5.0",
+]
 
 [project.urls]
-Homepage = ""
-Repository = ""
+Homepage = "https://github.com/xgiralt64/ProxVNC"
+Repository = "https://github.com/xgiralt64/ProxVNC"
+
+[tool.setuptools.packages.find]
+include = ["ProxVNC", "ProxVNC.*"]
+exclude = ["Examples*"]
