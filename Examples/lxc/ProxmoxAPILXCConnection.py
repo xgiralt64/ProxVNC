@@ -4,9 +4,9 @@ from ProxVNC import ProxVNC
 def main():
     # --- ProxmoxAPI ---
     
-    proxmox = ProxmoxAPI(host="",
-                         user="", 
-                         password="",
+    proxmox = ProxmoxAPI(host="<proxmox_host:port>", # ex: 10.0.0.1:8006
+                         user="<username@realm>", # ex: "root@pam"
+                         password="<password>",
                          otp=input("OTP: "),
                          verify_ssl=False)
         

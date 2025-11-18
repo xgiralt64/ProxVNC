@@ -4,16 +4,18 @@ from ProxVNC import ProxVNC
 def main():
     # --- ProxmoxAPI ---
     
-    proxmox = ProxmoxAPI(host="",
-                         user="", 
-                         password="",
+    proxmox = ProxmoxAPI(host="<proxmox_host:port>", # ex: 10.0.0.1:8006
+                         user="<username@realm>", # ex: "root@pam"
+                         password="<password>",
                          otp=input("OTP: "),
                          verify_ssl=False)
         
-    client = ProxVNC(api=proxmox, node="pve")
-    client.connect(timeoutHandshake=2)
+    client = ProxVNC(api=proxmox, node="pve") # specify node if needed, otherwise first node is used by default
+    
+    client.connect()
     print(client.readTerm())
 
+    # --- Interact with terminal ---
     while True:
         cmd = input("Enter a command: ")
 

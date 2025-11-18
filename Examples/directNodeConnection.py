@@ -3,9 +3,9 @@ from ProxVNC import ProxVNC
 
 def main():
     
-    proxmox = ProxmoxAPI(host="",
-                         user="", 
-                         password="",
+    proxmox = ProxmoxAPI(host="<proxmox_host:port>", # ex: 10.0.0.1:8006
+                         user="", # ex: "root@pam"
+                         password="<password>",
                          otp=input("OTP: "),
                          verify_ssl=False)
     
@@ -18,9 +18,9 @@ def main():
 
         
     client = ProxVNC(
-             url="https://",
+             url="https://<proxmox_host:port>",
              node="pve",
-             user="",
+             user="<username@realm>",
              shell_port=shell_port,
              shell_ticket=shell_ticket,
              pve_auth_cookie=pve_cookie
