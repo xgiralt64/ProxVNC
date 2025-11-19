@@ -42,7 +42,7 @@ class TerminalHandler:
                     data = self.ws_connection.ws.recv()
                     if data:
                         buffer += data.decode("utf-8", errors="ignore")
-                        #print(data.decode("utf-8", errors="ignore")) print data
+                        #print(data.decode("utf-8", errors="ignore"))
                         last_data_time = time.time()
                     else:
                         break

@@ -13,8 +13,8 @@ def main():
     client = ProxVNC(api=proxmox, node="pve") # specify node if needed, otherwise first node is used by default
     
     client.connect()
+    
     print(client.readTerm())
-
     # --- Interact with terminal ---
     while True:
         cmd = input("Enter a command: ")

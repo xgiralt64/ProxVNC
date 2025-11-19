@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ProxVNC"
-version = "1.0.3"
+version = "1.0.4"
 description = "A python package that allows connecting and sending commands direcly to a proxmox node/lxc via vnc websocket."
 readme = "README.md"
 license = { file = "LICENSE" }
