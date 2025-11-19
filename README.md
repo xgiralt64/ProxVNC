@@ -92,3 +92,14 @@ Once you have the required data, create the ProxVNC object manually:
 ```
 
 You can now start sending and receiving commands.
+
+## Contributing
+
+We welcome contributions! Here’s how you can help:
+
+1. Fork the repository and create a new branch for your feature or bug fix.
+2. Make your changes and ensure the code is clean and well-documented.
+3. Test your changes thoroughly before submitting.
+4. Open a pull request with a clear description of your changes.
+
+Please follow [PEP8](https://peps.python.org/pep-0008/) coding style and include examples if applicable.
