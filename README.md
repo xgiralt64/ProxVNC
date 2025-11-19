@@ -1,20 +1,20 @@
 # ProxVNC
 
-ProxVNC allows connecting and executing arbitrary commands direcly to a proxmox node/lxc via vnc websocket.
+ProxVNC allows connecting and executing arbitrary commands directly on a Proxmox node/LXC via VNC WebSocket.
 
-### Installation
+## Installation
 
-This package can be installed via Pypi.
+This package can be installed via PyPI:
 
-`pip install ProxVNC `
+`pip install ProxVNC`
 
-### Usage information
+## Usage information
 
-See Examples folder for more working examples.
+See the Examples folder for additional working examples.
 
 #### Connecting via proxmoxer package:
 
-First create an object to connect to your proxmox server. For more info read [PROXMOXER](https://proxmoxer.github.io/docs/latest/) documentation. **All auth methods are supported**. If you use an **Api token** you must set the perms to `[Sys.console]`
+First, create an object to connect to your Proxmox server. For more info read [PROXMOXER](https://proxmoxer.github.io/docs/latest/) documentation. **All authentication methods are supported.**. If you use an **Api token** you must set the permission to `[Sys.console]`
 
 ```python
 from ProxVNC.proxmoxer import ProxmoxAPI
@@ -27,7 +27,8 @@ proxmox = ProxmoxAPI(host="<proxmox_host:port>", # ex: 10.0.0.1:8006
                          verify_ssl=False)
 ```
 
-Create a ProxVNC object and give the proxmoxer connection via the api parameter, optionaly you can specify to which node connect.
+Create a ProxVNC object and pass the proxmoxer connection via the `api` parameter.
+Optionally, specify which node to connect to.
 
 ```python
     client = ProxVNC(api=proxmox, node="pve") # specify node if needed, otherwise first node is used by default
@@ -35,7 +36,7 @@ Create a ProxVNC object and give the proxmoxer connection via the api parameter,
     client.connect()  
 ```
 
-You are now conected! Here there is a simple code to interact with the terminal
+You are now connected! Here is a simple example of interacting with the terminal:
 
 ```python
     print(client.readTerm())
@@ -53,11 +54,11 @@ You are now conected! Here there is a simple code to interact with the terminal
     client.disconnect() # Don't forget to disconnect when you're done
 ```
 
-#### Connecting direcly with shell ticket:
+#### Connecting direcly with a shell ticket:
 
-You can also connect to the VNC terminal direcly **POSTing to the termproxy Proxmox endpoint**
+You can also connect to the VNC terminal directly by **POSTing to the Proxmox termproxy endpoint**
 
-In this example PROXMOXER will be used to call Proxmox API endpoints but you can use the requests or another package.
+In this example, PROXMOXER is used to call Proxmox API endpoints, but you can use requests or another package.
 
 ```python
     proxmox = ProxmoxAPI(host="<proxmox_host:port>", # ex: 10.0.0.1:8006
@@ -75,7 +76,7 @@ In this example PROXMOXER will be used to call Proxmox API endpoints but you can
     pve_cookie, _ = proxmox.get_tokens() # Get cookie token
 ```
 
-When you have all the required data, you can create the ProxVNC Object with all the params.
+Once you have the required data, create the ProxVNC object manually:
 
 ```python
     client = ProxVNC(
@@ -90,4 +91,4 @@ When you have all the required data, you can create the ProxVNC Object with all 
      client.connect()
 ```
 
-And now you can start sending and reciving commands.
+You can now start sending and receiving commands.
