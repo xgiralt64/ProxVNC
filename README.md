@@ -1,5 +1,5 @@
 <p>
-  <img src="assets/20251119_143022_ProxVNC-Logo.png" alt="Project logo" width="250"/>
+  <img src="assets/logo.png" alt="logo" width="250"/>
 </p>
 
 ProxVNC allows connecting and executing arbitrary commands directly on a Proxmox node/LXC via VNC WebSocket.
