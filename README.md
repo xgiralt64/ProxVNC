@@ -95,6 +95,15 @@ Once you have the required data, create the ProxVNC object manually:
 
 You can now start sending and receiving commands.
 
+#### Sending files:
+
+Using the `sendFile(local_path: str, remote_path: str, wait_time=0.5)` method, you can upload files to a specific location on your proxmox node/lxc
+
+```python
+    client.sendFile("testSend.txt", "/root/testReceive.txt")
+
+```
+
 ## Contributing
 
 We welcome contributions! Here’s how you can help:

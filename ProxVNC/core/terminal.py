@@ -20,6 +20,16 @@ class TerminalHandler:
         for byte in input_data:
             self.ws_connection.ws.send(f"0:1:{chr(byte)}")
 
+    def sendFile(self, local_path: str, remote_path: str, wait_time=0.5):
+
+        import base64
+
+        with open(local_path, "rb") as f:
+            b64data = base64.b64encode(f.read()).decode('ascii')
+
+        self.execCommand(f"echo '{b64data}' | base64 -d > {remote_path}")
+        time.sleep(wait_time) # Not waiting a delay may cause issues on some systems
+
     def readUntilPrompt(self, term_prompt="root@pve"):
         buffer = ""
         while True:

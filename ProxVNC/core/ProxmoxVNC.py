@@ -123,3 +123,8 @@ class ProxVNC:
         if self.terminal is None:
             raise RuntimeError("Terminal not initialized. Call connect() first.")
         self.terminal.sendBinaryInput(input_data)
+
+    def sendFile(self, local_path: str, remote_path: str):
+        if self.terminal is None:
+            raise RuntimeError("Terminal not initialized. Call connect() first.")
+        self.terminal.sendFile(local_path, remote_path)
