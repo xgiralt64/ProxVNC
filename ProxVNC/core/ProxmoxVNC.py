@@ -97,6 +97,11 @@ class ProxVNC:
         if self.terminal is None:
             raise RuntimeError("Terminal not initialized. Call connect() first.")
         self.terminal.execCommand(command)
+    
+    def execCommandAsB64(self, command: str, wait_time=0.5):
+        if self.terminal is None:
+            raise RuntimeError("Terminal not initialized. Call connect() first.")
+        self.terminal.execCommandAsB64(command, wait_time)
 
     def readUntilPrompt(self, termPrompt="root@pve"):
         if self.terminal is None:
@@ -124,7 +129,7 @@ class ProxVNC:
             raise RuntimeError("Terminal not initialized. Call connect() first.")
         self.terminal.sendBinaryInput(input_data)
 
-    def sendFile(self, local_path: str, remote_path: str):
+    def sendFile(self, local_path: str, remote_path: str, wait_time=0.5):
         if self.terminal is None:
             raise RuntimeError("Terminal not initialized. Call connect() first.")
-        self.terminal.sendFile(local_path, remote_path)
+        self.terminal.sendFile(local_path, remote_path, wait_time)

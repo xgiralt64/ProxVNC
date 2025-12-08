@@ -56,6 +56,8 @@ You are now connected! Here is a simple example of interacting with the terminal
     client.disconnect() # Don't forget to disconnect when you're done
 ```
 
+Use `execCommandAsB64(command: str, wait_time=0.5)` instead of `execCommand()` for complex or large commands. It encodes the command in Base64 and sends it with an optional delay to ensure reliable execution.
+
 #### Connecting direcly with a shell ticket:
 
 You can also connect to the VNC terminal directly by **POSTing to the Proxmox termproxy endpoint**

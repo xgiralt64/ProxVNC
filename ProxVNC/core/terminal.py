@@ -30,6 +30,14 @@ class TerminalHandler:
         self.execCommand(f"echo '{b64data}' | base64 -d > {remote_path}")
         time.sleep(wait_time) # Not waiting a delay may cause issues on some systems
 
+    def execCommandAsB64(self, command: str, wait_time=0.5):
+        import base64
+
+        b64_command = base64.b64encode(command.encode('utf-8')).decode('ascii')
+        print(f"echo '{b64_command}' | base64 -d | bash")
+        self.execCommand(f"echo '{b64_command}' | base64 -d | bash")
+        time.sleep(wait_time) # Not waiting a delay may cause issues on some systems
+
     def readUntilPrompt(self, term_prompt="root@pve"):
         buffer = ""
         while True:
