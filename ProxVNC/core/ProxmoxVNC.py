@@ -45,7 +45,7 @@ class ProxVNC:
 
                 shell_ticket = termproxy["ticket"]
                 shell_port = termproxy["port"]
-                ws_url = f"{wss_url}/nodes/{self._store["node"]}/lxc/{lxc}/vncwebsocket?port={shell_port}&vncticket={urllib.parse.quote_plus(shell_ticket)}"
+                ws_url = f"{wss_url}/nodes/{self._store['node']}/lxc/{lxc}/vncwebsocket?port={shell_port}&vncticket={urllib.parse.quote_plus(shell_ticket)}"
 
             else:
                 # Connect to the node terminal
@@ -53,14 +53,14 @@ class ProxVNC:
 
                 shell_ticket = termproxy["ticket"]
                 shell_port = termproxy["port"]
-                ws_url = f"{wss_url}/nodes/{self._store["node"]}/vncwebsocket?port={shell_port}&vncticket={urllib.parse.quote_plus(shell_ticket)}"
+                ws_url = f"{wss_url}/nodes/{self._store['node']}/vncwebsocket?port={shell_port}&vncticket={urllib.parse.quote_plus(shell_ticket)}"
 
 
 
             self.connection = WSConnection(ws_url, cookie_header)
             self.connection.connect()
 
-            self.connection.ws.send(f"{self._store["user"]}:{shell_ticket}\n")
+            self.connection.ws.send(f"{self._store['user']}:{shell_ticket}\n")
             self.connection.ws.send("1:86:24:")  # resolution
 
             if not waitHandshake(self.connection.ws, timeoutHandshake):
@@ -74,14 +74,14 @@ class ProxVNC:
             if lxc is not None:
                 ws_url = f"{wss_url}/api2/json/nodes/{self._store['node']}/lxc/{lxc}/vncwebsocket?port={self._store['shell_port']}&vncticket={urllib.parse.quote_plus(self._store['shell_ticket'])}"
             else:
-                ws_url = f"{wss_url}/api2/json/nodes/{self._store["node"]}/vncwebsocket?port={self._store['shell_port']}&vncticket={urllib.parse.quote_plus(self._store['shell_ticket'])}"
+                ws_url = f"{wss_url}/api2/json/nodes/{self._store['node']}/vncwebsocket?port={self._store['shell_port']}&vncticket={urllib.parse.quote_plus(self._store['shell_ticket'])}"
             
             cookie_header=f"PVEAuthCookie={self._store['pve_auth_cookie']}"
 
             self.connection = WSConnection(ws_url, cookie_header)
             self.connection.connect()
 
-            self.connection.ws.send(f"{self._store["user"]}:{self._store['shell_ticket']}\n")
+            self.connection.ws.send(f"{self._store['user']}:{self._store['shell_ticket']}\n")
             self.connection.ws.send("1:86:24:")  # resolution
 
             if not waitHandshake(self.connection.ws, timeoutHandshake):
