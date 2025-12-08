@@ -34,7 +34,6 @@ class TerminalHandler:
         import base64
 
         b64_command = base64.b64encode(command.encode('utf-8')).decode('ascii')
-        print(f"echo '{b64_command}' | base64 -d | bash")
         self.execCommand(f"echo '{b64_command}' | base64 -d | bash")
         time.sleep(wait_time) # Not waiting a delay may cause issues on some systems
 
